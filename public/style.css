@@ -2,7 +2,6 @@ body,
 html {
     background: url("main.jpg");
     height: 100%;
-    overflow: hidden;
     background-size: cover;
     background-attachment: fixed;
     background-position: center
@@ -23,16 +22,18 @@ html {
     margin: 20px 50px !important;
 }
 
-.online-list,
+
+/* .online-list,
 .activities {
     height: 520px !important;
     overflow-y: auto;
-}
+} */
 
-.msg-card,
+
+/* .msg-card,
 .dimmer {
     height: 520px;
-}
+} */
 
 .sidebar {
     padding: 10px;
@@ -56,17 +57,14 @@ html {
     overflow-y: scroll;
 }
 
-.chatHeader {
+
+/* .chatHeader {
     height: 50px;
     color: white!important;
-}
+} */
 
 .item-slider {
     padding: 0 10px;
-}
-
-.formss {
-    background: #E8E8E8;
 }
 
 
@@ -128,6 +126,11 @@ html {
 .slick-track:after {
     clear: both;
 }
+
+
+/* .blue {
+    float: right;
+} */
 
 .slick-loading .slick-track {
     visibility: hidden;

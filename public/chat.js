@@ -1,15 +1,15 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var socket = io();
     var cloned = $(".inbox").html();
     cloned = cloned.replace("template", "")
     $('.reg-btn').attr('disabled', true)
     var username = "anonymous";
 
-    $("#Myusername").change(function () {
+    $("#Myusername").change(function() {
         if ($(this).val() != "") {
             username = $(this).val();
             socket.emit('check-username', username)
-            socket.on('verify-username', function (reply) {
+            socket.on('verify-username', function(reply) {
                 if (reply == '1') {
                     $('.reg-btn').attr('disabled', false)
                 } else {
@@ -17,16 +17,14 @@ $(document).ready(function () {
                         class: "ui name-error pointing red basic label"
                     }).text("This username is taken!"))
 
-                    $("#Myusername").keydown(function () {
+                    $("#Myusername").keydown(function() {
                         $('.name-error').hide()
                     })
                 }
             })
         }
     });
-
-
-    socket.on('joined', function (user) {
+    socket.on('joined', function(user) {
         if (user == username) {
             addActivity("You", "joined")
         } else {
@@ -34,11 +32,11 @@ $(document).ready(function () {
         }
     })
 
-    socket.on('leave', function (user) {
+    socket.on('leave', function(user) {
         addActivity(user, "left")
     })
 
-    $('.reg-btn').click(function () {
+    $('.reg-btn').click(function() {
         $("#Myusername").val("");
         $('#register').modal('hide');
         $('.btn-compose').attr('disabled', false)
@@ -52,29 +50,29 @@ $(document).ready(function () {
 
     $('#register').modal('setting', 'closable', false).modal('show');
 
-    $(document).on("keypress", ".message-input", function () {
+    $(document).on("keypress", ".message-input", function() {
         socket.emit('typing', username)
     })
-    $(document).on("out", ".message-input", function () {
+    $(document).on("out", ".message-input", function() {
         socket.emit('typing', username)
     })
 
     //Listen on typing
-    socket.on('typing', function (username) {
-        $('.user-name').each(function () {
+    socket.on('typing', function(username) {
+        $('.user-name').each(function() {
             if ($(this).text() == username) {
                 $(this).append("<span>", {
                     id: "typing"
                 }).text($(this).text() + '(typing)')
             }
         });
-        setTimeout(function () {
+        setTimeout(function() {
             $(".user-name").text($(".user-name").text().replace("(typing)", ""))
         }, 1500)
     })
 
 
-    $(document).on('click', '.sendMe', function (e) {
+    $(document).on('click', '.sendMe', function(e) {
         var receiver = $(this).attr("receiver").split("_")[1]
         var message = $(this).closest("div.form-area").find("input").val();
         if (receiver == 'gc') {
@@ -97,7 +95,7 @@ $(document).ready(function () {
             atoplay: false
         });
 
-        setTimeout(function () {
+        setTimeout(function() {
             $('#loader').removeClass('active');
         }, 800);
         $(".item-slider").slick('slickAdd', cloned)
@@ -105,16 +103,16 @@ $(document).ready(function () {
 
     }
 
-    socket.on("broadcastMessage", function (msg) {
+    socket.on("broadcastMessage", function(msg) {
         receiveMessage(msg)
     });
 
 
-    socket.on('online', function (data) {
+    socket.on('online', function(data) {
         countOnline(data)
     })
 
-    socket.on('logout', function (user) {
+    socket.on('logout', function(user) {
         $("." + user + "_class").remove()
         $("." + user + "_online").remove()
     })
@@ -146,9 +144,10 @@ $(document).ready(function () {
         }).css({
             padding: '10px',
             marginTop: '10px',
-            maxWidth: "200px",
+            maxWidth: "250px",
             wordWrap: 'break-word',
-            float: 'right'
+            marginLeft: '60%'
+                // marginRight: '0%'
         }).text(myMsg.message), '<br clear="all" />');
         $('#myMessage').val('');
         $('#receiver').val('');
